@@ -20,9 +20,10 @@ public class NewTaskDurable {
         this.queue = queue;
         ConnectionFactory factory = new ConnectionFactory();
         //设置远程登录地址
-        factory.setHost("172.17.22.187");
-        factory.setUsername("remote_user");
-        factory.setPassword("123456");
+        factory.setHost("localhost");
+//        factory.setHost("172.17.22.187");
+//        factory.setUsername("remote_user");
+//        factory.setPassword("123456");
         connection = factory.newConnection();
         channel = connection.createChannel();
         boolean durable = true;

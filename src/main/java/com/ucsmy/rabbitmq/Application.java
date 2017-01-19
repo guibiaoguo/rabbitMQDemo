@@ -20,7 +20,7 @@ public class Application {
             consumerThread1.start();
             Producer producer = new Producer("queue");
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 100000000; i++) {
                 HashMap message = new HashMap();
                 message.put("message number", i);
                 producer.sendMessage(message);

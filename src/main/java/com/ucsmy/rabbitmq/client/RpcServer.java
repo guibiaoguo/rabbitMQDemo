@@ -32,8 +32,7 @@ public class RpcServer {
                 System.out.println(" [x] Received '" + message + "'");
                 try {
 //                    doWork(message);
-                    int n = Integer.parseInt(message);
-
+                    long n = Long.parseLong(message);
                     System.out.println(" [.] fib(" + message + ")");
                     String response = "" + fib(n);
                     String callbackQueueName = channel.queueDeclare().getQueue();
@@ -47,11 +46,13 @@ public class RpcServer {
                     e.printStackTrace();
                 }finally {
                     System.out.println(" [x] Done ");
-//                    channel.basicAck(envelope.getDeliveryTag(), false);
+                    //手动发送确认消息
+                    channel.basicAck(envelope.getDeliveryTag(), false);
                 }
             }
         };
-        boolean autoAck = true; // acknowledgment is covered below
+        //设置为false，关闭自动回复确认消息
+        boolean autoAck = false; // acknowledgment is covered below
         channel.basicConsume(RPC_QUEUE_NAME, autoAck, consumer);
     }
 
@@ -66,7 +67,7 @@ public class RpcServer {
         }
     }
 
-    private static int fib(int n) throws Exception {
+    private static long fib(long n) throws Exception {
         if (n == 0) return 0;
         if (n == 1) return 1;
         return fib(n-1) + fib(n-2);

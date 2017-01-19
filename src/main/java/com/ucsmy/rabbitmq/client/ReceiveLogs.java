@@ -15,8 +15,8 @@ public class ReceiveLogs {
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
-
-        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
+        boolean durable = true; //messages as durable
+        channel.exchangeDeclare(EXCHANGE_NAME, "fanout",durable);
         //声明一个空的queue
         String queueName = channel.queueDeclare().getQueue();
         //绑定fanout类型的exchange和没有名字的queue
@@ -36,11 +36,13 @@ public class ReceiveLogs {
                     e.printStackTrace();
                 }finally {
                     System.out.println(" [x] Done ");
-                    //channel.basicAck(envelope.getDeliveryTag(), false);
+                    //手动发送确认消息
+                    channel.basicAck(envelope.getDeliveryTag(), false);
                 }
             }
         };
-        boolean autoAck = true; // acknowledgment is covered below
+        //设置为false，关闭自动回复确认消息
+        boolean autoAck = false; // acknowledgment is covered below
         channel.basicConsume(queueName, autoAck, consumer);
     }
 
@@ -51,7 +53,7 @@ public class ReceiveLogs {
      */
     private static void doWork(String task) throws InterruptedException {
         for (char ch: task.toCharArray()) {
-            if (ch == '.') Thread.sleep(100);
+            if (ch == '.') Thread.sleep(1000);
         }
     }
 }

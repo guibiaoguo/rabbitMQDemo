@@ -29,6 +29,7 @@ public class EmitLogDirect {
         channel = connection.createChannel();
 //        boolean durable = false;
 //        channel.queueDeclare(exchange, durable, false, false, null);
+
         //注册fanout广播模式的exchange
         channel.exchangeDeclare(exchange, "direct");
     }

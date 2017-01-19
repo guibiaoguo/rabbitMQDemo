@@ -15,9 +15,10 @@ public class WorkerDurable {
             throws Exception {
 
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("172.17.22.187");
-        factory.setUsername("remote_user");
-        factory.setPassword("123456");
+        factory.setHost("localhost");
+//        factory.setHost("172.17.22.187");
+//        factory.setUsername("remote_user");
+//        factory.setPassword("123456");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         boolean durable = true; //messages as durable
@@ -37,11 +38,13 @@ public class WorkerDurable {
                     e.printStackTrace();
                 }finally {
                     System.out.println(" [x] Done");
-                    //channel.basicAck(envelope.getDeliveryTag(), false);
+                    //手动发送确认消息
+                    channel.basicAck(envelope.getDeliveryTag(), false);
                 }
             }
         };
-        boolean autoAck = true; // acknowledgment is covered below
+        //设置为false，关闭自动回复确认消息
+        boolean autoAck = false; // acknowledgment is covered below
         channel.basicConsume(TASK_QUEUE_NAME, autoAck, consumer);
     }
 

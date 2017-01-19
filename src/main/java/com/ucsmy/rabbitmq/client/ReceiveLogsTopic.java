@@ -42,11 +42,13 @@ public class ReceiveLogsTopic {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally {
-                    System.out.println(" [x] Done ");
-                   // channel.basicAck(envelope.getDeliveryTag(), true);
+                    System.out.println("  [x] Done  ");
+                    //手动发送确认消息
+//                    channel.basicAck(envelope.getDeliveryTag(), false);
                 }
             }
         };
+        //设置为false，关闭自动回复确认消息
         boolean autoAck = true; // acknowledgment is covered below
         channel.basicConsume(queueName, autoAck, consumer);
     }

@@ -29,8 +29,9 @@ public class EmitLog {
         channel = connection.createChannel();
 //        boolean durable = false;
 //        channel.queueDeclare(exchange, durable, false, false, null);
+        boolean durable = true; //messages as durable
         //注册fanout广播模式的exchange
-        channel.exchangeDeclare(exchange, "fanout");
+        channel.exchangeDeclare(exchange, "fanout",durable);
     }
 
     public void sendMessage(String message) throws Exception {

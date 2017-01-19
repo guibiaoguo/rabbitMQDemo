@@ -54,7 +54,7 @@ public class RpcClient {
 //                        break;
 //                    }
 //                }
-                System.out.println(" [x] Received  '" + envelope.getRoutingKey() + " : "+ endPointName + "'");
+                System.out.println(Thread.currentThread().getName() + " [x] Received  '" + envelope.getRoutingKey() + " : "+ endPointName + "'");
             }
         };
 

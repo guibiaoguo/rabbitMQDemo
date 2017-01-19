@@ -30,5 +30,4 @@ public class Receive {
         };
         channel.basicConsume(QUEUE_NAME, true, consumer);
     }
-
 }

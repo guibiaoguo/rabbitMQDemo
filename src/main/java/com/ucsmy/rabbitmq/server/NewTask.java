@@ -19,8 +19,9 @@ public class NewTask {
     public NewTask(String queue) throws Exception {
         this.queue = queue;
         ConnectionFactory factory = new ConnectionFactory();
-        //设置远程登录地址
         factory.setHost("localhost");
+        //设置远程登录地址
+//        factory.setHost("172.17.22.187");
 //        factory.setUsername("remote_user");
 //        factory.setPassword("123456");
         connection = factory.newConnection();

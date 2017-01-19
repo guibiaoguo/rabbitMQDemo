@@ -15,6 +15,10 @@ public class Worker {
 
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
+        //设置远程登录地址
+//        factory.setHost("172.17.22.187");
+//        factory.setUsername("remote_user");
+//        factory.setPassword("123456");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
